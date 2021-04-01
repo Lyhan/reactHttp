@@ -28,12 +28,12 @@ class Blog extends Component {
         this.setState({selectedPostId: id})
     }
     render () {
-        let {posts} = this.state;
         return (
             <div>
                 <section className="Posts">
                     {this.state.posts.map(post=>(
-                        <Post title={post.title}
+                        <Post key={post.id}
+                              title={post.title}
                               author={post.author}
                               clicked={()=>this.postSelectedHandler(post.id)}
                         />))}
