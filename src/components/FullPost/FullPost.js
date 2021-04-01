@@ -6,7 +6,8 @@ import './FullPost.css';
 class FullPost extends Component {
 
     state = {
-        loadedPost: null
+        loadedPost: null,
+        error: false
     }
 
     componentDidUpdate() {
@@ -15,7 +16,9 @@ class FullPost extends Component {
                 axios.get('https://jsonplaceholder.typicode.com/posts/' + this.props.id)
                     .then(response => {
                         this.setState({loadedPost: response.data})
-                    })
+                    }).catch(err=>{
+                        this.setState({error:true})
+                })
             }
         }
     }
@@ -26,6 +29,7 @@ class FullPost extends Component {
     }
 
     render() {
+        if (this.state.error) return <p style={{textAlign:'center'}}>Something went wrong !</p>
         let post = <p style={{textAlign: 'center'}}>Please select a Post!</p>;
         if (this.props.id) {
             post = <p style={{textAlign: 'center'}}>Loading... !</p>
