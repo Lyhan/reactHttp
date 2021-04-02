@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import {Route,NavLink} from 'react-router-dom';
+import {Route,NavLink,Switch} from 'react-router-dom';
 
 import Posts from "./Posts/Posts";
 import NewPost from "./NewPost/NewPost";
 import  './Blog.css';
+import FullPost from "./FullPost/FullPost";
+
 /*
 NavLink adds "active" css class
 To pass routing props use hoc 'withRouter' to wrap components
@@ -32,7 +34,10 @@ class Blog extends Component {
                     </ul>
                 </header>
                 <Route path="/" exact component={Posts}/>
-                <Route path="/new-post" component={NewPost}/>
+                <Switch>
+                    <Route path="/new-post" component={NewPost}/>
+                    <Route path="/:id" component={FullPost}/>
+                </Switch>
             </div>
         );
     }

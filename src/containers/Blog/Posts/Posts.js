@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import {Link} from "react-router-dom";
 
 import Post from '../../../components/Post/Post';
 import './Posts.css';
@@ -7,36 +8,33 @@ import axiosInstance from "../../../axiosInstance";
 
 class Posts extends React.Component {
     state = {
-        posts: [],
-        selectedPostId:null
-
+        posts: []
     }
+
     componentDidMount() {
         axiosInstance.get('https://jsonplaceholder.typicode.com/posts')
-            .then(response=>{
+            .then(response => {
                 let posts = response.data;
-                let updatedPosts = posts.slice(0,4).map(post =>{
+                let updatedPosts = posts.slice(0, 4).map(post => {
                     return {
                         ...post,
                         author: "Max"
                     }
                 })
-                this.setState({posts:updatedPosts});
+                this.setState({posts: updatedPosts});
             })
     }
 
-    postSelectedHandler = (id)=>{
-        this.setState({selectedPostId: id})
-    }
+
     render() {
         let posts = <p style={{textAlign: 'center'}}>Something went wrong !</p>
         if (!this.state.error) {
             posts = this.state.posts.map(post => (
-                <Post key={post.id}
-                      title={post.title}
-                      author={post.author}
-                      clicked={() => this.postSelectedHandler(post.id)}
-                />))
+                <Link to={'/' + post.id} key={post.id}>
+                    <Post title={post.title}
+                          author={post.author}
+                    />
+                </Link>))
         }
         return (
             <section className="Posts">
