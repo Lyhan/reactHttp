@@ -7,6 +7,7 @@ class FullPost extends Component {
 
     state = {
         loadedPost: null,
+
         error: false
     }
 
