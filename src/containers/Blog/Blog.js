@@ -2,18 +2,23 @@ import React, { Component } from 'react';
 import {Route,NavLink,Switch} from 'react-router-dom';
 
 import Posts from "./Posts/Posts";
-import NewPost from "./NewPost/NewPost";
+// import NewPost from "./NewPost/NewPost";
 import  './Blog.css';
 import FullPost from "./FullPost/FullPost";
 import {Redirect} from "react-router";
+import asyncComponent from '../../hoc/asyncComponent';
 
 /*
 NavLink adds "active" css class
 To pass routing props use hoc 'withRouter' to wrap components
  */
+
+const AsyncNewPost = asyncComponent(()=>{
+    return import('./NewPost/NewPost');
+});
 class Blog extends Component {
     state = {
-        auth: false
+        auth: true
     }
     render () {
         return (
@@ -40,7 +45,7 @@ class Blog extends Component {
                 <Switch>
                     {/*Guard against Unauthenticated users, if component isn't rendered,
                      there is no way to reach it */}
-                    {this.state.auth ? <Route path="/new-post" component={NewPost}/> : null }
+                    {this.state.auth ? <Route path="/new-post" component={AsyncNewPost}/> : null }
                     <Route path="/posts" component={Posts}/>
                     {/*Multiple Routes pointing to same Component is ok*/}
                     <Route path="/" exact component={Posts}/>
