@@ -9,7 +9,7 @@ class NewPost extends Component {
         title: '',
         content: '',
         author: 'Max',
-        redirect: false
+        // redirect: false
     }
 
     submitPostHandler = () => {
@@ -21,17 +21,19 @@ class NewPost extends Component {
         }
         axios.post('/posts', data)
             .then(response => {
-                this.setState({redirect:true})
+                //this.props.history.push('/posts'); // Preserves history
+                this.props.history.replace('/posts'); // Doesn't preserve history
+                //this.setState({redirect:true});
                 // console.log(response)
             });
     }
 
     render() {
         // Conditional redirect
-        let redirect = this.state.redirect ? <Redirect to='/posts'/> : null;
+        // let redirect = this.state.redirect ? <Redirect to='/posts'/> : null; // Doesn't preserve history
         return (
             <div className="NewPost">
-                {redirect}
+                {/*{redirect}*/}
                 <h1>Add a Post</h1>
                 <label>Title</label>
                 <input type="text" value={this.state.title}
