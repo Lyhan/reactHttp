@@ -21,8 +21,18 @@ class FullPost extends Component {
      */
 
     componentDidMount() {
+        this.getData();
+    }
+
+    // Router will not Unmount/Mount a component that is already loaded.
+    // To cover that case it is necessary to use "componentDidUpdate"
+    componentDidUpdate() {
+        this.getData();
+    }
+
+    getData(){
         if (this.props.match.params.id) {
-            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.id)) {
+            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== parseInt(this.props.match.params.id))) {
                 axios.get('/posts/' + this.props.match.params.id)
                     .then(response => {
                         this.setState({loadedPost: response.data})

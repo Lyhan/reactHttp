@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {Link} from "react-router-dom";
+import {Link, Route} from "react-router-dom";
 
 import Post from '../../../components/Post/Post';
 import './Posts.css';
 import axiosInstance from "../../../axiosInstance";
+import FullPost from "../FullPost/FullPost";
 
 class Posts extends React.Component {
     state = {
@@ -28,7 +29,7 @@ class Posts extends React.Component {
     // Programmatic navigation
     postSelectedHanlder(id) {
         // this.props.history.push('/' + id);
-        this.props.history.push({pathname: '/' + id});
+        this.props.history.push({pathname: '/posts/' + id});
     }
 
 
@@ -37,19 +38,25 @@ class Posts extends React.Component {
         if (!this.state.error) {
             posts = this.state.posts.map(post => (
                 // <Link to={'/' + post.id} key={post.id}>
-                    <Post title={post.title}
-                          author={post.author}
-                          clicked={()=>this.postSelectedHanlder(post.id)}
-                    />
+                <Post
+                    key={post.id}
+                    title={post.title}
+                    author={post.author}
+                    clicked={() => this.postSelectedHanlder(post.id)}
+                />
                 // </Link>
             ))
         }
         return (
-            <section className="Posts">
-                {posts}
-            </section>
+            <div>
+                <section className="Posts">
+                    {posts}
+                </section>
+                <Route path={ this.props.match.url + '/:id'} component={FullPost}/>
+            </div>
         )
     }
+
 }
 
 Posts.propTypes = {
