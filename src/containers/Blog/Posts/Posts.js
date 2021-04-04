@@ -25,16 +25,24 @@ class Posts extends React.Component {
             })
     }
 
+    // Programmatic navigation
+    postSelectedHanlder(id) {
+        // this.props.history.push('/' + id);
+        this.props.history.push({pathname: '/' + id});
+    }
+
 
     render() {
         let posts = <p style={{textAlign: 'center'}}>Something went wrong !</p>
         if (!this.state.error) {
             posts = this.state.posts.map(post => (
-                <Link to={'/' + post.id} key={post.id}>
+                // <Link to={'/' + post.id} key={post.id}>
                     <Post title={post.title}
                           author={post.author}
+                          clicked={()=>this.postSelectedHanlder(post.id)}
                     />
-                </Link>))
+                // </Link>
+            ))
         }
         return (
             <section className="Posts">
