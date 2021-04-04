@@ -5,6 +5,7 @@ import Posts from "./Posts/Posts";
 import NewPost from "./NewPost/NewPost";
 import  './Blog.css';
 import FullPost from "./FullPost/FullPost";
+import {Redirect} from "react-router";
 
 /*
 NavLink adds "active" css class
@@ -36,6 +37,9 @@ class Blog extends Component {
                 <Switch>
                     <Route path="/new-post" component={NewPost}/>
                     <Route path="/posts" component={Posts}/>
+                    {/*Multiple Routes pointing to same Component is ok*/}
+                    {/*<Route path="/" component={Posts}/>*/}
+                    <Redirect from="/" to="/posts"/>
                 </Switch>
             </div>
         );
