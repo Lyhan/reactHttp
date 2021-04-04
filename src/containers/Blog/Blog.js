@@ -43,8 +43,11 @@ class Blog extends Component {
                     {this.state.auth ? <Route path="/new-post" component={NewPost}/> : null }
                     <Route path="/posts" component={Posts}/>
                     {/*Multiple Routes pointing to same Component is ok*/}
-                    {/*<Route path="/" component={Posts}/>*/}
-                    <Redirect from="/" to="/posts"/>
+                    <Route path="/" exact component={Posts}/>
+                    {/*<Redirect from="/" to="/posts"/>*/}
+                    {/*Catch all routes not found, it does not work with Redirect from='/'*/}
+                    <Route render={()=><h1 style={{textAlign:'center'}}>Not found</h1>}/>
+
                 </Switch>
             </div>
         );
