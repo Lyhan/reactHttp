@@ -9,8 +9,15 @@ class NewPost extends Component {
         title: '',
         content: '',
         author: 'Max',
+        //auth: false
         // redirect: false
     }
+
+    // componentDidMount() {
+    //     // Guard against unauthenticated access
+    //     let redirect = this.state.auth ? null : this.props.history.replace('/posts');
+    // }
+
 
     submitPostHandler = () => {
         const data = {

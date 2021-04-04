@@ -12,6 +12,9 @@ NavLink adds "active" css class
 To pass routing props use hoc 'withRouter' to wrap components
  */
 class Blog extends Component {
+    state = {
+        auth: false
+    }
     render () {
         return (
             <div>
@@ -35,7 +38,9 @@ class Blog extends Component {
                     </ul>
                 </header>
                 <Switch>
-                    <Route path="/new-post" component={NewPost}/>
+                    {/*Guard against Unauthenticated users, if component isn't rendered,
+                     there is no way to reach it */}
+                    {this.state.auth ? <Route path="/new-post" component={NewPost}/> : null }
                     <Route path="/posts" component={Posts}/>
                     {/*Multiple Routes pointing to same Component is ok*/}
                     {/*<Route path="/" component={Posts}/>*/}
